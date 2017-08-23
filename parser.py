@@ -24,7 +24,7 @@ border = 1
 for row in range(1, sheet.nrows):
 	cols = sheet.row_values(row)
 	border += 1
-	if border < 11788: # default 0. позиция на которой парсер споткнулся
+	if border < 11780: # default 0. позиция на которой парсер споткнулся
 		continue
 	
 	#print(cols)
