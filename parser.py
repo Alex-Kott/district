@@ -24,7 +24,7 @@ border = 1
 for row in range(1, sheet.nrows):
 	cols = sheet.row_values(row)
 	border += 1
-	if border < 11788:
+	if border < 12382: # default 0. позиция на которой парсер споткнулся
 		continue
 	
 	#print(cols)
@@ -51,7 +51,10 @@ for row in range(1, sheet.nrows):
 		row = row - 1
 		continue
 	resp = json.loads(r.text)
-	obj = resp['response']['GeoObjectCollection']['featureMember'][0]
+	try:
+		obj = resp['response']['GeoObjectCollection']['featureMember'][0]
+	except:
+		continue
 	lng, lat = obj['GeoObject']['Point']['pos'].split(" ") # lng, lat
 
 	params = {
@@ -69,7 +72,13 @@ for row in range(1, sheet.nrows):
 
 	resp = json.loads(r.text)
 	
-	featureMembers = resp['response']['GeoObjectCollection']['featureMember']
+	try:
+		featureMembers = resp['response']['GeoObjectCollection']['featureMember']
+	except Exception as e:
+		print(str(e))
+		time.sleep(10)
+		row = row - 1
+		continue
 	if len(featureMembers) == 0:
 		not_found.append((city, address))
 
@@ -91,6 +100,7 @@ for row in range(1, sheet.nrows):
 	count = count + 1
 	print("{} / 12601".format(count), end='\r', flush=True)
 
+'''
 with open("not_found.txt", "w") as nff:
 	nff.write(not_found)
-	nff.close()
+	nff.close()'''
