@@ -10,12 +10,12 @@ sheet = workbook.sheet_by_index(0)
 
 not_found = []
 url = "https://geocode-maps.yandex.ru/1.x/"
-'''
+
 with open("result.csv", "w") as f:
 	fieldnames = ['Полное название', 'Категории', 'Город', 'Адрес', 'Vkontakte', 'тел.', 'Район']
 	writer = csv.writer(f, delimiter=";")
 	writer.writerow(fieldnames)
-	f.close()'''
+	f.close()
 
 count = 1
 
@@ -24,7 +24,7 @@ border = 1
 for row in range(1, sheet.nrows):
 	cols = sheet.row_values(row)
 	border += 1
-	if border < 12382: # default 0. позиция на которой парсер споткнулся
+	if border < 11788: # default 0. позиция на которой парсер споткнулся
 		continue
 	
 	#print(cols)
