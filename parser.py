@@ -75,9 +75,8 @@ for row in range(1, sheet.nrows):
 	try:
 		featureMembers = resp['response']['GeoObjectCollection']['featureMember']
 	except Exception as e:
-		print(str(e))
+		print(resp)
 		time.sleep(10)
-		row = row - 1
 		continue
 	if len(featureMembers) == 0:
 		not_found.append((city, address))
@@ -98,7 +97,8 @@ for row in range(1, sheet.nrows):
 		f.close()
 
 	count = count + 1
-	print("{} / 12601".format(count), end='\r', flush=True)
+	#print("{} / 12601".format(count), end='\r', flush=True)
+	print("{} / 12601".format(count))
 
 '''
 with open("not_found.txt", "w") as nff:
